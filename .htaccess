@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* index.php?chpu=$0 [QSA]
+
+<FilesMatch "\.(php)$">
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "index.(php)$">
+    Allow from all
+</FilesMatch>
