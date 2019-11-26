@@ -34,4 +34,21 @@ class UserController extends BaseController
             'login' => $this->request->getValue('post', 'login') ?? ''
         ]);
     }
+
+    public function signInAction()
+    {
+        $this->title = 'Авторизация';
+        $errors = [];
+
+        if($this->request->isPost()) {
+            $mUser = new UserModel(new DBDriver(DB::connect()), new Validator());
+            $user = new User($mUser);
+            $user->signIn($this->request->getValue('post'));
+            $this->redirect('');
+        }
+
+        $this->content = $this->build('v_login',[
+            'errors' => $errors ?? '',
+        ]);
+    }
 }

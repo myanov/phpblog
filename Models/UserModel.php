@@ -50,6 +50,24 @@ class UserModel extends BaseModel
         ], false);
     }
 
+    public function signIn(array $fields)
+    {
+        $this->validator->execute($fields);
+
+        if(!$this->validator->success) {
+            //return $error = $this->validator->errors;
+        }
+
+        return $this->db->select(
+            sprintf("SELECT * FROM %s WHERE login=:login AND password=:password", $this->table),
+            [
+                'login' => $fields['login'],
+                'password' => $this->getHash($fields['password'])
+            ],
+            $this->db::FETCH_ONE
+        );
+    }
+
     public function getHash($password)
     {
         return md5($password . 'sdfslj_fhs2342lsh');

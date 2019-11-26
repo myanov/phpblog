@@ -19,4 +19,12 @@ class User
     {
         $this->mUser->signUp($fields);
     }
+
+    public function signIn(array $fields)
+    {
+        $res = $this->mUser->signIn($fields);
+        if(!empty($res)) {
+            $_SESSION['is_auth'] = true;
+        }
+    }
 }
