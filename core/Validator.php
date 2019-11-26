@@ -10,7 +10,7 @@ class Validator
 {
     public $clean = [];
     public $errors = [];
-    public $success = false;
+    public $success = true;
     protected $rules;
 
     public function execute(array $fields)
@@ -20,7 +20,7 @@ class Validator
         }
 
         foreach($this->rules as $name => $rules) {
-            if(!isset($fields[$name]) && isset($rules['require']) && $rules['require']) {
+            if((!isset($fields[$name]) || empty($fields[$name])) && isset($rules['require']) && $rules['require']) {
                 $this->errors[$name][] = sprintf('Field %s is require', $name);
             }
 
@@ -36,6 +36,10 @@ class Validator
                         $this->errors[$name][] = sprintf('Fields %s must be num', $name);
                     }
                 }
+            }
+
+            if(!empty($this->errors)) {
+                $this->success = false;
             }
 
             if(empty($this->errors[$name])) {

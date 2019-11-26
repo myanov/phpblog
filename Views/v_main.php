@@ -89,7 +89,8 @@
 						<!-- Actions -->
 							<section>
 								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">Log In</a></li>
+									<li><a href="<?= ROOT . 'user/sign-in' ?>" class="button big fit">Sign In</a></li>
+                                    <li><a href="<?= ROOT . 'user/sign-up' ?>" class="button big fit">Sign Up</a></li>
 								</ul>
 							</section>
 

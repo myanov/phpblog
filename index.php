@@ -17,6 +17,7 @@ if($params[$end] === '') {
     unset($params[$end]);
     $end--;
 }
+
 $controller = isset($params[0]) && $params[0] && is_string($params[0]) ? $params[0] : 'Article';
 $id = false;
 
@@ -26,6 +27,13 @@ if(isset($params[1]) && $params[1] && is_numeric($params[1])) {
 }
 
 $action = isset($params[1]) && $params[1] !== '' && is_string($params[1]) ? $params[1] : 'index';
+$action_parts = explode('-', $action);
+for($i = 1; $i < count($action_parts); $i++) {
+    if(isset($action_parts[$i])) {
+        $action_parts[$i] = ucfirst($action_parts[$i]);
+    }
+}
+$action = implode('', $action_parts);
 $action = sprintf('%sAction', $action);
 
 if(!$id) {
