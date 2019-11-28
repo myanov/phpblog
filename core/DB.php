@@ -16,7 +16,11 @@ class DB
 
     private static function getConnect()
     {
+        $opt = [
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+        ];
         $dsn = sprintf('%s:host=%s;dbname=%s;', 'mysql', 'localhost', 'modul1');
-        return new \PDO($dsn, 'root', 'root');
+        return new \PDO($dsn, 'root', 'root', $opt);
     }
 }

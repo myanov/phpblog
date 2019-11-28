@@ -22,9 +22,20 @@ class User
 
     public function signIn(array $fields)
     {
-        $res = $this->mUser->signIn($fields);
-        if(!empty($res)) {
-            $_SESSION['is_auth'] = true;
+        $user = $this->mUser->getByLogin($fields['login']);
+        if(!$user) {
+            // throw
         }
+
+        $matched = $this->mUser->getHash($fields['password']) === $user['password'];
+        if(!$matched) {
+            // throw
+        }
+
+        if(isset($fields['remember']) && !empty($fields['remember'])) {
+            // Set cookie
+        }
+
+        return true;
     }
 }

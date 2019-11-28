@@ -50,19 +50,12 @@ class UserModel extends BaseModel
         ], false);
     }
 
-    public function signIn(array $fields)
+    public function getByLogin($login)
     {
-        $this->validator->execute($fields);
-
-        if(!$this->validator->success) {
-            //return $error = $this->validator->errors;
-        }
-
         return $this->db->select(
             sprintf("SELECT * FROM %s WHERE login=:login AND password=:password", $this->table),
             [
-                'login' => $fields['login'],
-                'password' => $this->getHash($fields['password'])
+                'login' => $login
             ],
             $this->db::FETCH_ONE
         );
